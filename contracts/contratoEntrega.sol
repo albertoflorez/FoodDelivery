@@ -7,9 +7,9 @@ import "./contratoPago.sol";
 contract Entrega {
 
     address public contratoPago;
-    address public walletUser;
-    address public walletRestaurante;
-    address public walletRepartidor;
+    address payable public walletUser;
+    address payable public walletRestaurante;
+    address payable public walletRepartidor;
 
     enum StateType {
         Activo,
@@ -32,10 +32,10 @@ contract Entrega {
         emit StatusEntrega(State);
     }
 
-    function actors (string memory usuario, string memory restaurante, string memory repartidor) public {
-        walletUser = address(bytes20(bytes(usuario)));
-        walletRestaurante = address(bytes20(bytes(restaurante)));
-        walletRepartidor = address(bytes20(bytes(repartidor)));
+    function actors (address payable usuario, address payable restaurante, address payable repartidor) public {
+        walletUser = usuario;
+        walletRestaurante = restaurante;
+        walletRepartidor = repartidor;
         emit Actores(walletUser, walletRestaurante, walletRepartidor);
     }
 

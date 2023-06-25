@@ -1,4 +1,3 @@
-
 //const API_KEY = process.env.API_KEY;
 //const PRIVATE_KEY = process.env.PRIVATE_KEY;
 //const PEDIDO_CONTRACT_ADDRESS = process.env.PEDIDO_CONTRACT_ADDRESS;
@@ -7,9 +6,14 @@
 //const COMPENSACION_CONTRACT_ADDRESS = process.env.COMPENSACION_CONTRACT_ADDRESS;
 //const PRODUCTO_CONTRACT_ADDRESS = process.env.PRODUCTO_CONTRACT_ADDRESS;
 
-const CONSUMIDOR_WALLET_ADDRESS = process.env.CONSUMIDOR_WALLET_ADDRESS;
-const RESTAURANTE_WALLET_ADDRESS = process.env.RESTAURANTE_WALLET_ADDRESS;
-const REPARTIDOR_WALLET_ADDRESS = process.env.REPARTIDOR_WALLET_ADDRESS;
+//const CONSUMIDOR_WALLET_ADDRESS = process.env.CONSUMIDOR_WALLET_ADDRESS;
+//const RESTAURANTE_WALLET_ADDRESS = process.env.RESTAURANTE_WALLET_ADDRESS;
+//const REPARTIDOR_WALLET_ADDRESS = process.env.REPARTIDOR_WALLET_ADDRESS;
+
+const CONSUMIDOR_WALLET_ADDRESS = "0xb3B03160c451462BcAFf14483f87E9B935bd62D1"
+const RESTAURANTE_WALLET_ADDRESS = "0x2b13Fe1C61a37f1a0dB9f9faEA3861F620209954"
+const REPARTIDOR_WALLET_ADDRESS = "0x1c263B5bD935A12d97FE48Cfd8A380D3C5963e0D"
+const PRECIO = 0.001
 
 const { ethers } = require("hardhat");
 //const pedidoContract = require("../artifacts/contracts/contratoPedido.sol/Pedido.json");
@@ -57,9 +61,10 @@ async function main() {
   console.log("Wallet de Restaurante: ", ethers.utils.formatEther(balanceRestaurante));
   const balanceRepartidor = await entrega.showDel();
   console.log("Wallet de Repartidor: ", ethers.utils.formatEther(balanceRepartidor));
-
-  console.log("Petición de generación de Pedido...");
-  const tx1 = await producto.updateAndBuyProducto("Hamburguesa", "1000000000000000000", RESTAURANTE_WALLET_ADDRESS, { value: ethers.utils.parseEther("1")});
+  
+  const a = (1000000000000000000 * PRECIO).toString();
+  console.log("Petición de generación de Pedido de " +  PRECIO + " ETHER o el equivalente de " + a + " wei...");
+  const tx1 = await producto.updateAndBuyProducto("Hamburguesa", a , RESTAURANTE_WALLET_ADDRESS, { value: ethers.utils.parseEther(PRECIO.toString())});
   await tx1.wait();
 
   console.log("Actualización de los wallet de los actores...");

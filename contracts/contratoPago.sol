@@ -6,9 +6,9 @@ import "./contratoCompensacion.sol";
 
 contract Pago {
 
-    address public user;
-    address public restaurant;
-    address public deliver;
+    address payable public user;
+    address payable public restaurant;
+    address payable public deliver;
 
     enum StateType {
         Activo,
@@ -23,7 +23,7 @@ contract Pago {
         State = StateType.Inactivo;
     }
 
-    function activate(address usuario, address restaurante, address repartidor) public {
+    function activate(address payable usuario, address payable restaurante, address payable repartidor) public {
         State = StateType.Activo;
         user = usuario;
         restaurant = restaurante;
